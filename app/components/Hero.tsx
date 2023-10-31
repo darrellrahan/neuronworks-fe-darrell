@@ -1,0 +1,183 @@
+"use client";
+
+import { CaretLeft } from "@phosphor-icons/react";
+import { CaretRight } from "@phosphor-icons/react";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { raleway } from "../fonts";
+
+function Hero() {
+  const CAROUSEL_DATA = [
+    {
+      title: "Business Intellegence",
+      body: "Our solutions are strategically crafted to enhance your team’s performance and help you towards wiser decisions for you business.",
+    },
+    {
+      title: "Lorem Ipsum",
+      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    },
+    {
+      title: "Ipsum Lorem",
+      body: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    },
+    {
+      title: "Dolor Sit Amet",
+      body: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+    },
+  ];
+
+  const [carouselIndex, setCarouselIndex] = useState(0);
+
+  function nextSlide() {
+    setCarouselIndex(carouselIndex === 3 ? 0 : carouselIndex + 1);
+  }
+  function prevSlide() {
+    setCarouselIndex(carouselIndex === 0 ? 3 : carouselIndex - 1);
+  }
+
+  useEffect(() => {
+    const id = setInterval(nextSlide, 5000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [carouselIndex]);
+
+  return (
+    <section id="hero">
+      <div className="h-screen bg-[url('/assets/hero-bg.svg')] bg-no-repeat bg-cover grid grid-cols-2 items-center text-white overflow-hidden relative">
+        <div className="absolute w-[20.5rem] h-[20.5rem] z-30 bottom-32 right-32 -translate-x-[5.6rem] rounded-full bg-cover bg-[url('/assets/hero-team.svg')]"></div>
+        <Image
+          src="/assets/white-shape.svg"
+          alt="agus"
+          width={1000}
+          height={1000}
+          className="absolute w-[180rem] h-[180rem] z-20 translate-y-[20.75rem] -translate-x-20 rotate-[1.5deg] object-cover"
+        />
+        <div className="pl-40">
+          <div className="relative h-[20rem] overflow-hidden flex items-center">
+            {CAROUSEL_DATA.map((data, index) => {
+              let className = "translate-x-full opacity-0";
+
+              if (index === carouselIndex) {
+                className = "translate-x-0 opacity-100";
+              }
+              if (
+                index === carouselIndex - 1 ||
+                (index === 2 && carouselIndex === 0)
+              ) {
+                className = "-translate-x-full opacity-0";
+              }
+
+              return (
+                <div
+                  key={data.title}
+                  className={`absolute inset-0 space-y-8 mb-24 duration-300 ease-linear ${className}`}
+                >
+                  <h1 className={`${raleway.className} text-5xl font-bold`}>
+                    {data.title}
+                  </h1>
+                  <p className={`${raleway.className} text-lg`}>{data.body}</p>
+                  <div className="flex gap-2">
+                    <button className="px-5 py-3 bg-white rounded-lg text-[#D61924] border-2 border-white font-medium text-lg">
+                      Learn more
+                    </button>
+                    <button className="px-5 py-3 bg-transparent rounded-lg text-white border-2 border-white font-medium text-lg">
+                      Contact us
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="flex items-center gap-2">
+            <button onClick={prevSlide}>
+              <CaretLeft size={24} weight="bold" />
+            </button>
+            <button
+              onClick={() => setCarouselIndex(0)}
+              className={`w-8 h-1.5 ${
+                carouselIndex === 0 ? "bg-white" : "bg-[#33343532]"
+              } rounded-full duration-300 ease-linear`}
+            ></button>
+            <button
+              onClick={() => setCarouselIndex(1)}
+              className={`w-8 h-1.5 ${
+                carouselIndex === 1 ? "bg-white" : "bg-[#33343532]"
+              } rounded-full duration-300 ease-linear`}
+            ></button>
+            <button
+              onClick={() => setCarouselIndex(2)}
+              className={`w-8 h-1.5 ${
+                carouselIndex === 2 ? "bg-white" : "bg-[#33343532]"
+              } rounded-full duration-300 ease-linear`}
+            ></button>
+            <button
+              onClick={() => setCarouselIndex(3)}
+              className={`w-8 h-1.5 ${
+                carouselIndex === 3 ? "bg-white" : "bg-[#33343532]"
+              } rounded-full duration-300 ease-linear`}
+            ></button>
+            <button onClick={nextSlide}>
+              <CaretRight size={24} weight="bold" />
+            </button>
+          </div>
+        </div>
+        <div className="h-full flex items-center justify-center py-28 translate-y-12">
+          <div className="w-[35rem] h-[35rem] relative">
+            <div className="absolute inset-0 border-2 border-dashed border-[rgba(241,245,248,0.32)] rounded-full animate-rotate-slow">
+              <Image
+                src="/assets/ic-hero-image.svg"
+                alt="image"
+                width={48}
+                height={48}
+                className="absolute left-3 bottom-28"
+              />
+              <Image
+                src="/assets/ic-hero-video.svg"
+                alt="video"
+                width={48}
+                height={48}
+                className="absolute left-[4.5rem] top-10"
+              />
+              <Image
+                src="/assets/ic-hero-code.svg"
+                alt="code"
+                width={48}
+                height={48}
+                className="absolute right-12 top-16"
+              />
+            </div>
+            <div className="absolute inset-12 border-2 border-[rgba(241,245,248,0.48)] rounded-full animate-rotate-normal">
+              <Image
+                src="/assets/ic-hero-cart.svg"
+                alt="cart"
+                width={48}
+                height={48}
+                className="absolute left-1/2 -top-5"
+              />
+              <Image
+                src="/assets/ic-hero-person.svg"
+                alt="person"
+                width={48}
+                height={48}
+                className="absolute -right-5 bottom-40"
+              />
+            </div>
+            <div className="absolute inset-24 border-2 border-dashed border-[rgba(241,245,248,0.64)] rounded-full animate-rotate-fast">
+              <Image
+                src="/assets/ic-hero-headphone.svg"
+                alt="headphone"
+                width={48}
+                height={48}
+                className="absolute -left-6 top-32"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default Hero;
