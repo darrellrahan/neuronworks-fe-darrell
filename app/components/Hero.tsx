@@ -45,15 +45,7 @@ function Hero() {
 
   return (
     <section id="hero">
-      <div className="h-screen bg-[url('/assets/hero-bg.svg')] bg-no-repeat bg-cover grid grid-cols-2 items-center text-white overflow-hidden relative">
-        <div className="absolute w-[20.5rem] h-[20.5rem] z-30 bottom-32 right-32 -translate-x-[5.6rem] rounded-full bg-cover bg-[url('/assets/hero-team.svg')]"></div>
-        <Image
-          src="/assets/white-shape.svg"
-          alt="agus"
-          width={1000}
-          height={1000}
-          className="absolute w-[180rem] h-[180rem] z-20 translate-y-[20.75rem] -translate-x-20 rotate-[1.5deg] object-cover"
-        />
+      <div className="h-screen bg-[url('/assets/hero-bg.svg')] bg-no-repeat bg-cover grid grid-cols-2 items-center text-white overflow-hidden">
         <div className="pl-40">
           <div className="relative h-[20rem] overflow-hidden flex items-center">
             {CAROUSEL_DATA.map((data, index) => {
@@ -123,7 +115,7 @@ function Hero() {
             </button>
           </div>
         </div>
-        <div className="h-full flex items-center justify-center py-28 translate-y-12">
+        <div className="h-full flex items-center justify-center py-28 translate-y-4">
           <div className="w-[35rem] h-[35rem] relative">
             <div className="absolute inset-0 border-2 border-dashed border-[rgba(241,245,248,0.32)] rounded-full animate-rotate-slow">
               <Image
@@ -173,6 +165,7 @@ function Hero() {
                 className="absolute -left-6 top-32"
               />
             </div>
+            <div className="absolute inset-[7.5rem] translate-y-3 rounded-full bg-cover bg-[url('/assets/hero-team.svg')]"></div>
           </div>
         </div>
       </div>

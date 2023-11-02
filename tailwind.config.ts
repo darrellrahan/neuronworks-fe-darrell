@@ -14,9 +14,9 @@ const config: Config = {
         },
       },
       animation: {
-        "rotate-slow": "rotate 35s linear infinite",
-        "rotate-normal": "rotate 30s linear infinite",
-        "rotate-fast": "rotate 25s linear infinite",
+        "rotate-slow": "rotate 100s linear infinite",
+        "rotate-normal": "rotate 95s linear infinite",
+        "rotate-fast": "rotate 90s linear infinite",
       },
     },
   },
