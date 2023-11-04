@@ -1,8 +1,45 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { raleway } from "../fonts";
 
 function Testimonial() {
+  const CAROUSEL_DATA = [
+    {
+      quote:
+        "Working with Neuronworks has transformed the way we run our business. With their IT solutions, our efficiency and productivity have significantly increased!",
+      quoters: "Massri - Director PT. Telkom Indonesia",
+    },
+    {
+      quote:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. sunt in culpa",
+      quoters: "Darrell - Mafia Boss",
+    },
+    {
+      quote:
+        "Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse. sunt in culpa",
+      quoters: "Marwa - The daughter of Pa Agus",
+    },
+  ];
+
+  const [carouselIndex, setCarouselIndex] = useState(0);
+
+  function nextSlide() {
+    setCarouselIndex(carouselIndex === 2 ? 0 : carouselIndex + 1);
+  }
+  function prevSlide() {
+    setCarouselIndex(carouselIndex === 0 ? 2 : carouselIndex - 1);
+  }
+
+  useEffect(() => {
+    const id = setInterval(nextSlide, 5000);
+
+    return () => {
+      clearInterval(id);
+    };
+  }, [carouselIndex]);
+
   return (
     <section id="testimonial">
       <div className={`${raleway.className} py-16 px-48`}>
@@ -146,40 +183,54 @@ function Testimonial() {
           </div>
         </div>
         <div className="flex items-center justify-between gap-60">
-          <div>
-            <div className="space-y-3 mb-8">
-              <p className="text-lg">
-                "Working with Neuronworks has transformed the way we run our
-                business. With their IT solutions, our efficiency and
-                productivity have significantly increased!"
-              </p>
-              <div className="w-20 h-1 bg-[#919EAB]"></div>
-              <h4 className="font-bold text-gray-500">
-                Massri - Director PT. Telkom Indonesia
-              </h4>
-            </div>
-            <Image
-              src="/assets/five-star.svg"
-              alt="five star"
-              width={135}
-              height={24}
-            />
+          <div className="relative h-[165px] w-[820px] overflow-hidden flex items-center">
+            {CAROUSEL_DATA.map((data, index) => {
+              let className = "translate-x-full opacity-0";
+
+              if (index === carouselIndex) {
+                className = "translate-x-0 opacity-100";
+              }
+              if (
+                index === carouselIndex - 1 ||
+                (index === 2 && carouselIndex === 0)
+              ) {
+                className = "-translate-x-full opacity-0";
+              }
+
+              return (
+                <div
+                  className={`${className} absolute inset-0 duration-300 ease-linear`}
+                >
+                  <div className="space-y-3 mb-8">
+                    <p className="text-lg">"{data.quote}"</p>
+                    <div className="w-20 h-1 bg-[#919EAB]"></div>
+                    <h4 className="font-bold text-gray-500">{data.quoters}</h4>
+                  </div>
+                  <Image
+                    src="/assets/five-star.svg"
+                    alt="five star"
+                    width={135}
+                    height={24}
+                  />
+                </div>
+              );
+            })}
           </div>
           <div className="flex gap-3">
-            <button>
+            <button onClick={prevSlide}>
               <Image
                 src="/assets/arrow-prev-service.svg"
-                alt="next"
-                width={64}
-                height={64}
+                alt="prev"
+                width={48}
+                height={48}
               />
             </button>
-            <button>
+            <button onClick={nextSlide}>
               <Image
                 src="/assets/arrow-next-service.svg"
                 alt="next"
-                width={64}
-                height={64}
+                width={48}
+                height={48}
               />
             </button>
           </div>
